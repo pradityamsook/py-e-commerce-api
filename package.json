@@ -1,0 +1,39 @@
+{
+  "name": "py-e-commerce-api",
+  "version": "1.0.0",
+  "description": "REST API for py-e-commerce",
+  "main": "index.js",
+  "repository": "https://github.com/pradityamsook/py-e-commerce-api.git",
+  "author": "Leon P.",
+  "license": "MIT",
+  "dependencies": {
+    "gts": "^3.1.1",
+    "nodemon": "^2.0.21",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/body-parser": "^1.19.2",
+    "@types/config": "^3.3.0",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@types/lodash": "^4.14.191",
+    "@types/nanoid": "^3.0.0",
+    "@types/node": "^14.11.2",
+    "@types/yup": "^0.32.0",
+    "gts": "^3.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "dev": "nodemon --config nodemon.json src/app.ts",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "yarn.cmd run compile",
+    "pretest": "yarn.cmd run compile",
+    "posttest": "yarn.cmd run lint"
+  }
+}
