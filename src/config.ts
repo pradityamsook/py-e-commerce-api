@@ -14,22 +14,28 @@ export interface typeConfig {
     }
 }
 
-export function sqlConfig() {
-    const config = {
-        user: process.env.USER_NAME,
-        password: process.env.PASSWORD,
-        database: process.env.DB_NAME,
-        server: 'localhost',
-        pool: {
-            max: 10,
-            min: 0,
-            idleTimeoutMillis: 30000
-        },
-        options: {
-            encrypt: true,
-            trustServerCertificate: true
-        }
-    } as typeConfig;
+class Config {
+    sqlConfig() {
+        const config = {
+            user: process.env.USER_NAME,
+            password: process.env.PASSWORD,
+            database: process.env.DB_NAME,
+            server: 'localhost',
+            pool: {
+                max: 10,
+                min: 0,
+                idleTimeoutMillis: 30000
+            },
+            options: {
+                encrypt: true,
+                trustServerCertificate: true
+            }
+        } as typeConfig;
+    
+        return config;   
+    }
+}
 
-    return config;   
+export {
+    Config
 }

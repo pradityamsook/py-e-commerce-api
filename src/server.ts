@@ -1,29 +1,29 @@
 import * as dotenv from "dotenv";
 import  * as sql from "mssql";
+import { Config } from "./config"
+
 dotenv.config();
 
-export async function connection() {
-    const LOG_NAME = "Database connection >> ";
-    const config = {
-        user: process.env.USER_NAME,
-        password: process.env.PASSWORD,
-        database: process.env.DB_NAME,
-        server: 'localhost',
-        pool: {
-            max: 10,
-            min: 0,
-            idleTimeoutMillis: 30000
-        },
-        options: {
-            encrypt: true,
-            trustServerCertificate: true
+class ConnectDatabase {
+    private readonly sqlConfig: Config;
+
+    constructor () {
+        this.sqlConfig = new Config;
+    }
+
+    public async connection() {
+        const LOG_NAME = "Database connection >> ";
+        
+        try {
+            await sql.connect(this.sqlConfig.sqlConfig());
+            const result = await sql.query`SELECT * FROM Persons`;
+            console.dir(`${LOG_NAME} ${JSON.stringify(result.recordset)}`);
+        } catch (err) {
+            console.dir(`${LOG_NAME} ${err}`);
         }
     }
-    try {
-        await sql.connect(config);
-        const result = await sql.query`SELECT * FROM Persons`;
-        console.dir(`${LOG_NAME} ${JSON.stringify(result)}`);
-    } catch (err) {
-        console.dir(`${LOG_NAME} ${err}`);
-    }
+}
+
+export {
+    ConnectDatabase
 }

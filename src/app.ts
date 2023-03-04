@@ -1,3 +1,4 @@
-import { connection } from "./server";
+import { ConnectDatabase } from "./server";
 
-connection();
+const connection = new ConnectDatabase().connection();
+connection;
