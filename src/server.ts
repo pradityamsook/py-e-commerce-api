@@ -1,5 +1,5 @@
-import * as dotenv from "dotenv";
-import  * as sql from "mssql";
+import dotenv = require("dotenv");
+import sql = require("mssql");
 import { Config } from "./config"
 
 dotenv.config();
