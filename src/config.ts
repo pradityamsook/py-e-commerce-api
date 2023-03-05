@@ -1,4 +1,4 @@
-export interface typeConfig {
+interface typeConfig {
     user: string;
     password: string;
     database: string;
@@ -20,7 +20,7 @@ class Config {
             user: process.env.USER_NAME,
             password: process.env.PASSWORD,
             database: process.env.DB_NAME,
-            server: 'localhost',
+            server: process.env.SERVER?.toString(),
             pool: {
                 max: 10,
                 min: 0,
