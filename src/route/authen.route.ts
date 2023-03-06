@@ -8,4 +8,4 @@ export const authenRoute = Router();
 
 const authenticationController = new AuthenticateController();
 authenRoute.post("/login", authenticationController.login);
-authenRoute.get("/", authenticationController.hello);
+authenRoute.get("/hello", authenticationController.hello);
