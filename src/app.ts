@@ -1,5 +1,5 @@
 import { ConnectDatabase } from "./server";
-import { authenRoute } from "./route/authen.route";
+import { route } from "./route/index.route";
 
 import cors = require("cors");
 import express = require("express");
@@ -21,5 +21,4 @@ app.use(express.json());
 
 app.listen(PORT);
 
-app.use('/api', authenRoute);
-app.use("/hello", authenRoute);
+app.use('/api', route);
