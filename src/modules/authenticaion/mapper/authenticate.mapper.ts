@@ -1,4 +1,5 @@
-import { User } from "../interface/user.interface";
+import { IResult } from "mssql";
+import { GetUser, User } from "../interface/user.interface";
 
 export class AuthenticateMapper {
     /**
@@ -11,5 +12,16 @@ req: User : User    */
         } as User;
 
         return user;
+    }
+
+    public mapperGetUserLogin(res: any): GetUser {
+        let getUser: GetUser = {
+           "username": res.Username,
+           "first_name": res.FirstName,
+           "last_name": res.LastName, 
+           "role": res.Role
+        } as GetUser;
+        
+        return getUser;
     }
 }
