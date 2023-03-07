@@ -16,10 +16,11 @@ class ConnectDatabase {
         
         try {
             await SQL.connect(this.sqlConfig.sqlConfig());
-            const result = await SQL.query`${req}`;
-            SQL.pool.close();
+            const result = await SQL.query(req);
+            console.log(result.recordset);
+            // SQL.pool.close();
             return result;
-            // console.dir(`${LOG_NAME} ${JSON.stringify(result.recordset)}`);
+            // console.dir(`${LOG_NAME} ${JSON.stringify(result)}`);
         } catch (err) {
             console.dir(`${LOG_NAME} ${err}`);
         }
