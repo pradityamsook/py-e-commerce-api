@@ -16,8 +16,9 @@ class ConnectDatabase {
         
         try {
             await sql.connect(this.sqlConfig.sqlConfig());
-            const result = await sql.query`SELECT * FROM Persons`;
-            console.dir(`${LOG_NAME} ${JSON.stringify(result.recordset)}`);
+            const requestQuery = `SELECT * FROM users`;
+            const result = await sql.query(requestQuery);
+            console.dir(LOG_NAME + JSON.stringify(result.recordset));
         } catch (err) {
             console.dir(`${LOG_NAME} ${err}`);
         }

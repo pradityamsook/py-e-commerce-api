@@ -14,6 +14,12 @@ interface typeConfig {
     }
 }
 
+
+import dotenv = require("dotenv");
+
+dotenv.config();
+
+
 class Config {
     sqlConfig() {
         const config = {
@@ -22,7 +28,7 @@ class Config {
             database: process.env.DB_NAME,
             server: process.env.SERVER?.toString(),
             pool: {
-                max: 10,
+                max: 100000,
                 min: 0,
                 idleTimeoutMillis: 30000
             },
