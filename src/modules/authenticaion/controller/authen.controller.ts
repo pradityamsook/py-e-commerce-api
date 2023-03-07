@@ -1,17 +1,17 @@
+import { Result } from "antd";
 import { Request, Response } from "express";
 import { AuthenticateMapper } from "../mapper/authenticate.mapper";
 import { AuthenticateService } from "../services/authenticate.service";
 
 export class AuthenticateController {
     constructor (
-        private readonly authenService: AuthenticateService = new AuthenticateService,
-        private readonly authenticateMapper: AuthenticateMapper = new AuthenticateMapper
-    ){
-    }
+        private readonly authenService: AuthenticateService = new AuthenticateService(),
+        private readonly authenticateMapper: AuthenticateMapper = new AuthenticateMapper()
+    ) {}
     
     public async login(req: Request, res: Response): Promise<any> {
         const authenMap: AuthenticateMapper = new AuthenticateMapper();
-        const authenService: AuthenticateService = new AuthenticateService()
+        const authenService: AuthenticateService = new AuthenticateService();
         console.log("AuthenticateController >> login : " + JSON.stringify(req.body));
         const { user, password } = req.body
         const reqUser = authenMap.mapperLogin(user, password);
@@ -25,7 +25,14 @@ export class AuthenticateController {
             } 
             
             const result = await authenService.login(reqUser);
-            // console.log(result);
+            
+            if (result.rowsAffected[0] == 0) {
+                return res.json({
+                    succes: false,
+                    message: "User logged in unsuccessfully because wrong query",
+                })
+            }
+
             return res.json({
                 succes: true,
                 message: "User logged in successfully",
