@@ -7,11 +7,17 @@ export class AuthenticateRepository {
         private readonly connect: ConnectDatabase = new ConnectDatabase()
     ) {}
 
-    /**
-     * login
-req: User     */
     public async login(req: User): Promise<any> {
-        const SELECT_USER = `SELECT * FROM users WHERE Username = '${req.username}' AND Password = '${req.password}'`;
+        const SELECT_USER = 
+            `SELECT 
+            Username as username, 
+            Firstname as first_name, 
+            Lastname as last_name, 
+            Role as role 
+            FROM users WHERE Username = 
+            '${req.username}' AND Password = 
+            '${req.password}'`.trim()
+        ;
         console.log(SELECT_USER);
         const result = await this.connect.connection(SELECT_USER);
         
