@@ -1,4 +1,3 @@
-import { Result } from "antd";
 import { Request, Response } from "express";
 import { AuthenticateMapper } from "../mapper/authenticate.mapper";
 import { AuthenticateService } from "../services/authenticate.service";
