@@ -18,7 +18,6 @@ export class AuthenticateRepository {
             '${req.username}' AND Password = 
             '${req.password}'`.trim()
         ;
-        console.log(SELECT_USER);
         const result = await this.connect.connection(SELECT_USER);
         
         console.log(result);
