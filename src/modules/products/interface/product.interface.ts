@@ -4,4 +4,5 @@ export interface GetProduct {
     image_url: string;
     price: number;
     sale_active: number;
+    amount: number;
 }
