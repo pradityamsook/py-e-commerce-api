@@ -1,6 +1,7 @@
 import dotenv = require("dotenv");
 import SQL = require("mssql");
 import { Config } from "../config/sql.config"
+import { logger } from "./logger.util";
 
 dotenv.config();
 
@@ -17,12 +18,10 @@ class ConnectDatabase {
         try {
             await SQL.connect(this.sqlConfig.sqlConfig());
             const result = await SQL.query(req);
-            console.log(result.recordset);
-            // SQL.pool.close();
+            logger.info(LOG_NAME + result.recordset);
             return result;
-            // console.dir(`${LOG_NAME} ${JSON.stringify(result)}`);
         } catch (err) {
-            console.dir(`${LOG_NAME} ${err}`);
+            logger.error(`${LOG_NAME} ${err}`);
         }
     }
 }
