@@ -7,8 +7,6 @@ import { Application } from "express";
 
 const app: Application = express();
 const PORT = 8080;
-// const connection = new ConnectDatabase().connection();
-// connection;
 
 app.use(
     cors({
@@ -16,6 +14,8 @@ app.use(
         credentials: true,
     }),
 );
+
+app.use('/image', express.static(process.cwd() + '/src/uploads'));
 
 app.use(express.json());
 

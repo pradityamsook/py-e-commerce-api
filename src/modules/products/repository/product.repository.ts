@@ -5,12 +5,12 @@ import { logger } from "../../../utils/logger.util";
 
 export class ProductRepository {
     private readonly LOG_NAME: string = "ProductRepository >> ";
-    constructor (
+    constructor(
         private readonly connect: ConnectDatabase = new ConnectDatabase(),
-    ){}
+    ) { }
 
-    public async getProduct(): Promise<any> {
-        const SELECT_PRODUCT = 
+    public async getProduct(productId?: any): Promise<any> {
+        const SELECT_PRODUCT =
             `SELECT
             ProductID as product_id,
             Name as name,
@@ -19,8 +19,15 @@ export class ProductRepository {
             Sale as sale_active,
             Amount as amount
             FROM products`.trim()
-        ;
-        const result = await this.connect.connection(SELECT_PRODUCT);
+            ;
+        const WHERE_ID = ` WHERE ProductID = ${productId}`;
+
+        let result: any;
+        if (isNaN(productId)) {
+            result = await this.connect.connection(SELECT_PRODUCT);
+        } else {
+            result = await this.connect.connection(SELECT_PRODUCT + WHERE_ID);
+        }
 
         if (result.rowsAffected[0] != 1) {
             logger.error(this.LOG_NAME + "getProduct : no query");
@@ -30,7 +37,7 @@ export class ProductRepository {
     }
 
     public async createProduct(reqProduct: GetProduct) {
-        const INSERT_PRODUCT = 
+        const INSERT_PRODUCT =
             `INSERT INTO products
             (
                 Name, 
@@ -47,7 +54,7 @@ export class ProductRepository {
                 ${reqProduct.sale_active},
                 ${reqProduct.amount}
             )`.trim()
-        ;
+            ;
 
         const result = await this.connect.connection(INSERT_PRODUCT);
 
@@ -59,7 +66,7 @@ export class ProductRepository {
     }
 
     public async updateProduct(reqProduct: GetProduct) {
-        const UPDATE_PRODUCT = 
+        const UPDATE_PRODUCT =
             `UPDATE products
             SET
                 Name = N'${reqProduct.name}',
@@ -71,7 +78,7 @@ export class ProductRepository {
             WHERE
                 ProductID = ${reqProduct.product_id}
             `.trim()
-        ;
+            ;
         const result = await this.connect.connection(UPDATE_PRODUCT);
 
         if (!result) {
@@ -82,12 +89,12 @@ export class ProductRepository {
     }
 
     public async deleteProduct(reqProduct: number) {
-        const UPDATE_PRODUCT = 
+        const UPDATE_PRODUCT =
             `DELETE FROM products
             WHERE
                 ProductID = ${reqProduct}
             `.trim()
-        ;
+            ;
         const result = await this.connect.connection(UPDATE_PRODUCT);
 
         if (!result) {
