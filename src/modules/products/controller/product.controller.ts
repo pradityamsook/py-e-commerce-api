@@ -3,6 +3,7 @@ import { ProductService } from "../services/product.service";
 import { logger } from "../../../utils/logger.util";
 import { ProductMapper } from "../mapper/produt.mapper";
 import { unlink } from 'node:fs/promises';
+import fs = require("fs");
 
 
 export class ProductController {
@@ -97,7 +98,8 @@ export class ProductController {
             const result = await productService.updateProduct(reqProduct);
 
             if (filename && product && product.recordset && product.recordset.length > 0) {
-                unlink(process.cwd() + `/src/uploads/${product?.recordset?.[0]?.image_url}`);
+                // unlink(process.cwd() + `/src/uploads/${product?.recordset?.[0]?.image_url}`);
+                fs.unlink(process.cwd() + `/src/uploads/${product?.recordset?.[0]?.image_url}`, () => null);
             }
 
             if (!result) {
