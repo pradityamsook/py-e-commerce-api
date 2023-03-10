@@ -55,8 +55,10 @@ export class ProductController {
         const productService: ProductService = new ProductService();
         const reqProduct = req.body;
         const filename = req.file?.filename;
-        reqProduct.image_url = filename;
-        logger.debug(`${LOG_NAME} createProduct : `, JSON.stringify(req.file));
+        if (filename) {
+            reqProduct.image_url = filename;
+        }
+        logger.debug(`${LOG_NAME} createProduct : `, req.file);
 
         try {
             const result = await productService.createProduct(reqProduct);
@@ -86,6 +88,7 @@ export class ProductController {
         const reqProduct = req.body;
         const filename = req.file?.filename;
         if (filename) {
+            console.log(filename);
             reqProduct.image_url = filename;
         }
         logger.debug(`${LOG_NAME} updateProduct : `, JSON.stringify(reqProduct));
@@ -98,7 +101,6 @@ export class ProductController {
             const result = await productService.updateProduct(reqProduct);
 
             if (filename && product && product.recordset && product.recordset.length > 0) {
-                // unlink(process.cwd() + `/src/uploads/${product?.recordset?.[0]?.image_url}`);
                 fs.unlink(process.cwd() + `/src/uploads/${product?.recordset?.[0]?.image_url}`, () => null);
             }
 

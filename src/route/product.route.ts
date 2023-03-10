@@ -13,5 +13,5 @@ productRoute.get("/{productId}/", productController.getProduct);
 productRoute.post("/", upload.single("image"), productController.createProduct);
 productRoute.put("/", upload.single("image"), productController.updateProduct);
 productRoute.delete("/:id", productController.deleteProduct);
-productRoute.get("/image/:id", productController.getImage);
+// productRoute.get("/image/:id", productController.getImage);
 // productRoute.post("image", uploadImageMiddleware.upload.single("image"), productController.uploadImage);
