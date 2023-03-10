@@ -2,16 +2,10 @@ import { Request, Response } from "express";
 import { ProductService } from "../services/product.service";
 import { logger } from "../../../utils/logger.util";
 import { ProductMapper } from "../mapper/produt.mapper";
-import { unlink } from 'node:fs/promises';
 import fs = require("fs");
 
 
 export class ProductController {
-
-    getImage(arg0: string, getImage: any) {
-        throw new Error("Method not implemented.");
-    }
-
     constructor(
         private readonly productService: ProductService = new ProductService(),
         private readonly productMapper: ProductMapper = new ProductMapper()
@@ -128,7 +122,7 @@ export class ProductController {
         const productService: ProductService = new ProductService();
         const reqProduct = req.path;
 
-        logger.debug(`${LOG_NAME} deleteProduct : `, reqProduct);
+        logger.info(`${LOG_NAME} deleteProduct : `, reqProduct);
 
         try {
             const result = await productService.deleteProduct(reqProduct);
