@@ -21,12 +21,13 @@ export class ProductRepository {
             FROM products`.trim()
             ;
         const WHERE_ID = ` WHERE ProductID = ${productId}`;
+        const ORDER_BY = " ORDER BY ProductID DESC";
 
         let result: any;
         if (isNaN(productId)) {
-            result = await this.connect.connection(SELECT_PRODUCT);
+            result = await this.connect.connection(SELECT_PRODUCT + ORDER_BY);
         } else {
-            result = await this.connect.connection(SELECT_PRODUCT + WHERE_ID);
+            result = await this.connect.connection(SELECT_PRODUCT + WHERE_ID + ORDER_BY);
         }
 
         if (result.rowsAffected[0] != 1) {
