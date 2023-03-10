@@ -17,6 +17,7 @@ app.use(
 
 app.use('/image', express.static(process.cwd() + '/src/uploads'));
 
+
 app.use(express.json());
 
 app.listen(PORT);
